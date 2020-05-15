@@ -43,8 +43,7 @@ stages:
         arguments: # Optional
         workingDirectory: # Optional
         gulpjs: # Optional
-        publishJUnitResults: false # Optional
-        testResultsFiles: '**/TEST-*.xml' # Required when publishJUnitResults == True
+        testResultsFiles: '/' # Required when publishJUnitResults == True
         testRunTitle: # Optional
         enableCodeCoverage: false 
         testFramework: 'Mocha' # Optional. Options: mocha, jasmine
