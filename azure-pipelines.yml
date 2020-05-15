@@ -13,7 +13,7 @@ variables:
   environmentName: '{{ webAppName }}'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'vs2017-win2016'
   
 
 
@@ -39,7 +39,7 @@ stages:
       inputs:
         targets: 
         arguments: 'boo'
-        workingDirectory: '/'
+        workingDirectory: '**/TEST-*.xml'
         enableCodeCoverage: false
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
