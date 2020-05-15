@@ -14,6 +14,12 @@ variables:
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
+- task: gulp@1
+  inputs:
+    targets: 
+    arguments: 'boo'
+    workingDirectory: '/'
+    enableCodeCoverage: false
 
 stages:
 - stage: Build
