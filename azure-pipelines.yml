@@ -1,15 +1,10 @@
-# Node.js React Web App to Linux on Azure
-# Build a Node.js React app and deploy it to Azure as a Linux web app.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - master
 
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-
+  azureSubscription: '{{ azureRmConnection.Id }}'
 
   # Web app name
   webAppName: '{{ webAppName }}'
@@ -18,12 +13,19 @@ variables:
   environmentName: '{{ webAppName }}'
 
   # Agent VM image name
-  vmImageName: 'vs2017-win2016'
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
   displayName: Build stage
   jobs:  
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'PublishProfile'
+    PublishProfilePath: 'C:\Users\langh\azure\pipelines-javascript\$(System.DefaultWorkingDirectory)/**/*.pubxml'
+    PublishProfilePassword: '$(Password)'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    WebConfigParameters: 'yes'
   - job: Build
     displayName: Build
     pool:
