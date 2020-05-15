@@ -1,5 +1,4 @@
 trigger:
-
 - master
 
 variables:
@@ -14,13 +13,12 @@ variables:
   environmentName: '{{ webAppName }}'
 
   # Agent VM image name
-  vmImageName: 'vs2017-win2016'
-  
-
+  vmImage: $(vmImageName)
 
 stages:
 - stage: Build
   displayName: Build stage
+  
   jobs:  
   - job: Build
     displayName: Build
@@ -28,25 +26,7 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-    - task: ArchiveFiles@2
-      displayName: 'Archive files'
+    - task: NodeTool@0
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-        replaceExistingArchive: true
-
-    - task: gulp@1
-      inputs:
-        gulpFile: 'gulpfile.js' 
-        targets: # Optional
-        arguments: # Optional
-        workingDirectory: # Optional
-        gulpjs: # Optional
-        testResultsFiles: '/' # Required when publishJUnitResults == True
-        testRunTitle: # Optional
-        enableCodeCoverage: false 
-        testFramework: 'Mocha' # Optional. Options: mocha, jasmine
-        srcFiles: # Optional
-        testFiles: 'test/*.js' # Required when enableCodeCoverage == True
+      versionSpec: '10.x'
+      displayName: 'Install Node.js'
