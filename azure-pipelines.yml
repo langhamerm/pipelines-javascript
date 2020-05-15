@@ -35,12 +35,18 @@ stages:
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
+
     - task: gulp@1
       inputs:
-        targets: 
-        arguments: 'boo'
-        workingDirectory: '**/TEST-*.xml'
-        enableCodeCoverage: false
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-      artifact: drop
-
+        gulpFile: 'gulpfile.js' 
+        targets: # Optional
+        arguments: # Optional
+        workingDirectory: # Optional
+        gulpjs: # Optional
+        publishJUnitResults: false # Optional
+        testResultsFiles: '**/TEST-*.xml' # Required when publishJUnitResults == True
+        testRunTitle: # Optional
+        enableCodeCoverage: false 
+        testFramework: 'Mocha' # Optional. Options: mocha, jasmine
+        srcFiles: # Optional
+        testFiles: 'test/*.js' # Required when enableCodeCoverage == True
