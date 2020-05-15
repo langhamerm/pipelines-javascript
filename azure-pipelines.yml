@@ -13,12 +13,11 @@ variables:
   environmentName: '{{ webAppName }}'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'vs2017-win2016'
 
 stages:
 - stage: Build
   displayName: Build stage
-  
   jobs:  
   - job: Build
     displayName: Build
@@ -26,8 +25,14 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-    - task: NodeTool@0
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
       inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node.js'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
 
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      artifact: drop
