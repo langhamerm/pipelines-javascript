@@ -1,4 +1,9 @@
 trigger:
+- task: gulp@1
+  inputs:
+    gulpFile: '/'
+    targets: 
+    enableCodeCoverage: false
 - master
 
 variables:
