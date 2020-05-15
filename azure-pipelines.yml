@@ -1,4 +1,7 @@
 trigger:
+- task: UseNode@1
+  inputs:
+    checkLatest: true
 - master
 
 variables:
