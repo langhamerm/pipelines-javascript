@@ -13,7 +13,7 @@ variables:
   environmentName: '{{ webAppName }}'
 
   # Agent VM image name
-  vmImage: $(vmImageName)
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -28,5 +28,6 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-      versionSpec: '10.x'
+        versionSpec: '10.x'
       displayName: 'Install Node.js'
+
