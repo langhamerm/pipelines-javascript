@@ -19,13 +19,6 @@ stages:
 - stage: Build
   displayName: Build stage
   jobs:  
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'PublishProfile'
-    PublishProfilePath: 'C:\Users\langh\azure\pipelines-javascript\$(System.DefaultWorkingDirectory)/**/*.pubxml'
-    PublishProfilePassword: '$(Password)'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    WebConfigParameters: 'yes'
   - job: Build
     displayName: Build
     pool:
